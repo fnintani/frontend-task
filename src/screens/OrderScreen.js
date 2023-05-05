@@ -210,19 +210,19 @@ function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>Rp{order.itemsPrice.toFixed(2)}</Col>
+                    <Col>Rp{order.itemsPrice}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>Rp{order.shippingPrice.toFixed(2)}</Col>
+                    <Col>Rp{order.shippingPrice}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>Rp{order.taxPrice.toFixed(2)}</Col>
+                    <Col>Rp{order.taxPrice}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -231,7 +231,7 @@ function OrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>Rp{order.totalPrice.toFixed(2)}</strong>
+                      <strong>Rp{order.totalPrice}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

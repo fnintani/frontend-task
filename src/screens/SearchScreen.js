@@ -76,6 +76,7 @@ function SearchScreen() {
   const { search } = useLocation();
   const sp = new URLSearchParams(search); // /search?category=Food
   const category = sp.get("category") || "all";
+  const tag = sp.get("tag") || "all";
   const query = sp.get("query") || "all";
   const price = sp.get("price") || "all";
   const rating = sp.get("rating") || "all";
@@ -92,7 +93,7 @@ function SearchScreen() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/products/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
+          `/api/products/search?page=${page}&query=${query}&category=${category}&tag=${tag}&price=${price}&rating=${rating}&order=${order}`
         );
         dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (err) {
@@ -103,29 +104,47 @@ function SearchScreen() {
       }
     };
     fetchData();
-  }, [category, error, order, page, price, query, rating]);
+  }, [category, tag, error, order, page, price, query, rating]);
 
   const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
+
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchData = async () => {
       try {
         const { data } = await axios.get(`/api/products/categories`);
+        const { data: dataTag } = await axios.get(`/api/products/tag`);
         setCategories(data);
+        setTags(dataTag);
       } catch (err) {
         toast.error(getError(err));
       }
     };
-    fetchCategories();
+
+    fetchData();
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/categories`);
+  //       setCategories(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchCategories();
+  // }, [dispatch]);
 
   const getFilterUrl = (filter) => {
     const filterPage = filter.page || page;
     const filterCategory = filter.category || category;
+    const filterTag = filter.tag || tag;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const sortOrder = filter.order || order;
-    return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
+    return `/search?category=${filterCategory}&tag=${filterTag}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`;
   };
 
   return (
@@ -153,6 +172,29 @@ function SearchScreen() {
                     to={getFilterUrl({ category: c })}
                   >
                     {c}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <h3>Tags</h3>
+          <div>
+            <ul>
+              <li>
+                <Link
+                  className={"all" === tag ? "text-bold" : ""}
+                  to={getFilterUrl({ tag: "all" })}
+                >
+                  All
+                </Link>
+              </li>
+              {tags.map((t) => (
+                <li key={t}>
+                  <Link
+                    className={t === tag ? "text-bold" : ""}
+                    to={getFilterUrl({ tag: t })}
+                  >
+                    {t}
                   </Link>
                 </li>
               ))}

@@ -40,17 +40,21 @@ function App() {
 
   const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchData = async () => {
       try {
         const { data } = await axios.get(`/api/products/categories`);
+        const { data: dataTag } = await axios.get(`/api/products/tag`);
         setCategories(data);
+        setTags(dataTag);
       } catch (err) {
         toast.error(getError(err));
       }
     };
-    fetchCategories();
+
+    fetchData();
   }, []);
 
   return (
@@ -126,7 +130,7 @@ function App() {
             <Nav.Item>
               <strong>Categories</strong>
             </Nav.Item>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
                   to={{ pathname: "/search", search: `?category=${category}` }}
@@ -134,6 +138,20 @@ function App() {
                   onClick={() => setSidebarIsOpen(false)}
                 >
                   <Nav.Link>{category}</Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+            ))}
+            <Nav.Item>
+              <strong>Tags</strong>
+            </Nav.Item>
+            {tags?.map((tag) => (
+              <Nav.Item key={tag}>
+                <LinkContainer
+                  to={{ pathname: "/search", search: `?tag=${tag}` }}
+                  // to={`/search/category=${category}`}
+                  onClick={() => setSidebarIsOpen(false)}
+                >
+                  <Nav.Link>{tag}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
             ))}
