@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getError } from "../utils";
 import Button from "react-bootstrap/Button";
+import { idrFormat } from "../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -78,8 +79,8 @@ function OrderHistoryScreen() {
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
-                {/* <td>{order.totalPrice.toFixed(2)}</td> */}
-                <td>{order.totalPrice}</td>
+
+                <td>{idrFormat(order.totalPrice)}</td>
                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
                 <td>
                   {order.isDelivered

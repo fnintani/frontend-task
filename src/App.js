@@ -17,7 +17,7 @@ import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import SignupScreen from "./screens/SignupScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
+import InvoiceScreen from "./screens/InvoiceScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Button from "react-bootstrap/Button";
@@ -167,7 +167,7 @@ function App() {
               <Route path="/signup" element={<SignupScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
+              <Route path="/order/:id" element={<InvoiceScreen />} />
               <Route
                 path="/orderhistory"
                 element={<OrderHistoryScreen />}

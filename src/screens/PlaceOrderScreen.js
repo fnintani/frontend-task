@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { getError } from "./../utils";
 import CheckoutSteps from "./../components/CheckoutSteps";
 import LoadingBox from "../components/LoadingBox";
+import { idrFormat } from "./../utils";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,16 +38,12 @@ function PlaceOrderScreen() {
   const { cart, userInfo } = state;
 
   // const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100; // 123.2345 => 123.23
-  // cart.itemsPrice = round2(
-  //   cart.cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
-  // );
+
   cart.itemsPrice = cart.cartItems.reduce(
     (a, c) => a + c.quantity * c.price,
     0
   );
 
-  // cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
-  // cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.shippingPrice = cart.itemsPrice > 15000 ? 10000 : 5000;
   cart.taxPrice = 0.15 * cart.itemsPrice;
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
@@ -103,8 +100,9 @@ function PlaceOrderScreen() {
               <Card.Text>
                 <strong>Name:</strong> {cart.shippingAddress.fullName} <br />
                 <strong>Address: </strong> {cart.shippingAddress.address},
-                {cart.shippingAddress.city}, {cart.shippingAddress.postalCode},
-                {cart.shippingAddress.country}
+                {cart.shippingAddress.city}, {cart.shippingAddress.district},{" "}
+                {cart.shippingAddress.postalCode},
+                {cart.shippingAddress.province},
               </Card.Text>
               <Link to="/shipping">Edit</Link>
             </Card.Body>
@@ -138,7 +136,7 @@ function PlaceOrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>Rp{item.price}</Col>
+                      <Col md={3}>{idrFormat(item.price)}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -156,22 +154,19 @@ function PlaceOrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    {/* <Col>Rp{cart.itemsPrice.toFixed(2)}</Col> */}
-                    <Col>Rp{cart.itemsPrice}</Col>
+                    <Col>{idrFormat(cart.itemsPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    {/* <Col>Rp{cart.shippingPrice.toFixed(2)}</Col> */}
-                    <Col>Rp{cart.shippingPrice}</Col>
+                    <Col>{idrFormat(cart.shippingPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    {/* <Col>Rp{cart.taxPrice.toFixed(2)}</Col> */}
-                    <Col>Rp{cart.taxPrice}</Col>
+                    <Col>{idrFormat(cart.taxPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -180,8 +175,7 @@ function PlaceOrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      {/* <strong>Rp{cart.totalPrice.toFixed(2)}</strong> */}
-                      <strong>Rp{cart.totalPrice}</strong>
+                      <strong>{idrFormat(cart.totalPrice)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

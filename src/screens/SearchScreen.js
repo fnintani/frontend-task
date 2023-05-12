@@ -72,6 +72,8 @@ const ratings = [
 ];
 
 function SearchScreen() {
+  const [categories, setCategories] = useState([]);
+  const [tags, setTags] = useState([]);
   const navigate = useNavigate();
   const { search } = useLocation();
   const sp = new URLSearchParams(search); // /search?category=Food
@@ -106,9 +108,6 @@ function SearchScreen() {
     fetchData();
   }, [category, tag, error, order, page, price, query, rating]);
 
-  const [categories, setCategories] = useState([]);
-  const [tags, setTags] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -123,18 +122,6 @@ function SearchScreen() {
 
     fetchData();
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     try {
-  //       const { data } = await axios.get(`/api/products/categories`);
-  //       setCategories(data);
-  //     } catch (err) {
-  //       toast.error(getError(err));
-  //     }
-  //   };
-  //   fetchCategories();
-  // }, [dispatch]);
 
   const getFilterUrl = (filter) => {
     const filterPage = filter.page || page;
@@ -159,7 +146,7 @@ function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={"all" === category ? "text-bold" : ""}
+                  className={"all" === category ? "text-bold linkon" : ""}
                   to={getFilterUrl({ category: "all" })}
                 >
                   All
@@ -167,10 +154,7 @@ function SearchScreen() {
               </li>
               {categories.map((c) => (
                 <li key={c}>
-                  <Link
-                    className={c === category ? "text-bold" : ""}
-                    to={getFilterUrl({ category: c })}
-                  >
+                  <Link className="linkon" to={getFilterUrl({ category: c })}>
                     {c}
                   </Link>
                 </li>
@@ -181,19 +165,13 @@ function SearchScreen() {
           <div>
             <ul>
               <li>
-                <Link
-                  className={"all" === tag ? "text-bold" : ""}
-                  to={getFilterUrl({ tag: "all" })}
-                >
+                <Link className="linkon" to={getFilterUrl({ tag: "all" })}>
                   All
                 </Link>
               </li>
               {tags.map((t) => (
                 <li key={t}>
-                  <Link
-                    className={t === tag ? "text-bold" : ""}
-                    to={getFilterUrl({ tag: t })}
-                  >
+                  <Link className={"linkon"} to={getFilterUrl({ tag: t })}>
                     {t}
                   </Link>
                 </li>
@@ -260,6 +238,7 @@ function SearchScreen() {
                     {countProducts === 0 ? "No" : countProducts} Results
                     {query !== "all" && " : " + query}
                     {category !== "all" && " : " + category}
+                    {tag !== "all" && " : " + tag}
                     {price !== "all" && " : Price " + price}
                     {rating !== "all" && " : Rating " + rating + " & up"}
                     {query !== "all" ||

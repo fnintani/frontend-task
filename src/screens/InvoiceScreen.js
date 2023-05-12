@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useReducer } from "react";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import LoadingBox from "./../components/LoadingBox";
+import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Store } from "../Store";
-import { getError } from "../utils";
+import { getError, idrFormat } from "../utils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -138,9 +138,9 @@ function OrderScreen() {
   ) : (
     <div>
       <Helmet>
-        <title>Order {orderId}</title>
+        <title>Order Invoice {orderId}</title>
       </Helmet>
-      <h1 className="my-3">Order {orderId}</h1>
+      <h1 className="my-3">Invoice {orderId}</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -149,8 +149,9 @@ function OrderScreen() {
               <Card.Text>
                 <strong>Name:</strong> {order.shippingAddress.fullName} <br />
                 <strong>Address: </strong> {order.shippingAddress.address},
-                {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-                ,{order.shippingAddress.country}
+                {order.shippingAddress.city}, {order.shippingAddress.district},{" "}
+                {order.shippingAddress.postalCode},
+                {order.shippingAddress.province}
               </Card.Text>
               {order.isDelivered ? (
                 <MessageBox variant="success">
@@ -194,7 +195,7 @@ function OrderScreen() {
                       <Col md={3}>
                         <span>{item.quantity}</span>
                       </Col>
-                      <Col md={3}>Rp{item.price}</Col>
+                      <Col md={3}>{idrFormat(item.price)}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -210,19 +211,19 @@ function OrderScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Items</Col>
-                    <Col>Rp{order.itemsPrice}</Col>
+                    <Col>{idrFormat(order.itemsPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Shipping</Col>
-                    <Col>Rp{order.shippingPrice}</Col>
+                    <Col>{idrFormat(order.shippingPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Tax</Col>
-                    <Col>Rp{order.taxPrice}</Col>
+                    <Col>{idrFormat(order.taxPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -231,7 +232,7 @@ function OrderScreen() {
                       <strong> Order Total</strong>
                     </Col>
                     <Col>
-                      <strong>Rp{order.totalPrice}</strong>
+                      <strong>{idrFormat(order.totalPrice)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

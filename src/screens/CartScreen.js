@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
+import { idrFormat } from "../utils";
 
 function CartScreen() {
   const navigate = useNavigate();
@@ -86,7 +87,7 @@ function CartScreen() {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col md={3}>Rp{item.price}</Col>
+                    <Col md={3}>{idrFormat(item.price)}</Col>
                     <Col md={2}>
                       <Button
                         variant="light"
@@ -108,8 +109,10 @@ function CartScreen() {
                 <ListGroup.Item>
                   <h3>
                     Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
-                    items) : Rp
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    items) :
+                    {idrFormat(
+                      cartItems.reduce((a, c) => a + c.price * c.quantity, 0)
+                    )}
                   </h3>
                 </ListGroup.Item>
                 <ListGroup.Item>

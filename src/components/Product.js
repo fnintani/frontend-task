@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import axios from "axios";
 import { Store } from "../Store";
+import { idrFormat } from "../utils";
 
 const Product = (props) => {
   const { product } = props;
@@ -34,14 +35,14 @@ const Product = (props) => {
         <img src={product.image} className="card-img-top" alt={product.name} />
       </Link>
       <Card.Body>
-        <Link to={`/product/${product.slug}`}>
+        <Link to={`/product/${product.slug}`} className="linkon">
           <Card.Title>{product.name}</Card.Title>
         </Link>
         <Rating
           rating={product.rating}
-          numReviews={product.numReviews}
+          // numReviews={product.numReviews}
         ></Rating>
-        <Card.Text>Rp{product.price}</Card.Text>
+        <Card.Text>{idrFormat(product.price)}</Card.Text>
         {product.countInStocke === 0 ? (
           <Button variant="light" disabled>
             Habis

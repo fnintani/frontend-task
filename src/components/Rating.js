@@ -59,11 +59,11 @@ const Rating = (props) => {
           }
         />
       </span>
-      {caption ? (
+      {/* {caption ? (
         <span>{caption}</span>
       ) : (
         <span>{" " + numReviews + " reviews"}</span>
-      )}
+      )} */}
     </div>
   );
 };

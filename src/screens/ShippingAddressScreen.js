@@ -19,7 +19,8 @@ const ShippingAddressScreen = () => {
   const [postalCode, setPostalCode] = useState(
     shippingAddress.postalCode || ""
   );
-  const [country, setCountry] = useState(shippingAddress.country || "");
+  const [district, setDistrict] = useState(shippingAddress.district || "");
+  const [province, setProvince] = useState(shippingAddress.province || "");
 
   useEffect(() => {
     if (!userInfo) {
@@ -36,7 +37,8 @@ const ShippingAddressScreen = () => {
         address,
         city,
         postalCode,
-        country,
+        district,
+        province,
       },
     });
     localStorage.setItem(
@@ -46,7 +48,8 @@ const ShippingAddressScreen = () => {
         address,
         city,
         postalCode,
-        country,
+        district,
+        province,
       })
     );
     navigate("/payment");
@@ -70,11 +73,11 @@ const ShippingAddressScreen = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="address">
-            <Form.Label>Address</Form.Label>
+          <Form.Group className="mb-3" controlId="province">
+            <Form.Label>Province</Form.Label>
             <Form.Control
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
               required
             />
           </Form.Group>
@@ -86,6 +89,14 @@ const ShippingAddressScreen = () => {
               required
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="district">
+            <Form.Label>District/Kecamatan</Form.Label>
+            <Form.Control
+              value={district}
+              onChange={(e) => setDistrict(e.target.value)}
+              required
+            />
+          </Form.Group>
           <Form.Group className="mb-3" controlId="postalCode">
             <Form.Label>Postal Code</Form.Label>
             <Form.Control
@@ -94,11 +105,11 @@ const ShippingAddressScreen = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="country">
-            <Form.Label>Country</Form.Label>
+          <Form.Group className="mb-3" controlId="address">
+            <Form.Label>Address Detail</Form.Label>
             <Form.Control
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </Form.Group>

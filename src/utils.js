@@ -3,3 +3,11 @@ export const getError = (error) => {
     ? error.response.data.message
     : error.message;
 };
+
+export const idrFormat = (price) => {
+  const formattedPrice = price.toLocaleString("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+  return formattedPrice;
+};
