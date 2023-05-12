@@ -38,6 +38,19 @@ const Product = (props) => {
         <Link to={`/product/${product.slug}`} className="linkon">
           <Card.Title>{product.name}</Card.Title>
         </Link>
+        <Link
+          to={{ pathname: "/search", search: `?category=${product.category}` }}
+          className="criteria"
+        >
+          {product.category}
+        </Link>{" "}
+        |{" "}
+        <Link
+          to={{ pathname: "/search", search: `?tag=${product.tag}` }}
+          className="criteria"
+        >
+          {product.tag}
+        </Link>
         <Rating
           rating={product.rating}
           // numReviews={product.numReviews}

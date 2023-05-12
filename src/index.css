@@ -26,6 +26,24 @@ main{
   text-decoration: none;
 }
 
+.linkclick {
+  font-style: bold;
+  font-weight: 700;
+  color: #da6608;
+  text-decoration: none;
+}
+
+.criteria {
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.data-address {
+  color: #da6608;
+  font-size: 15px;
+}
+
 .add-container{
   min-height: 238px;
 }

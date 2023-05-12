@@ -39,6 +39,7 @@ function ProfileScreen() {
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("shippingAddress"));
+    console.log(items);
     if (items) {
       setAddress([items]);
     }
@@ -111,35 +112,44 @@ function ProfileScreen() {
           </form>
         </Col>
         <Col md={4}>
-          <h1 className="my-3">Address</h1>
-          {address ? (
-            <div className="add-container">
-              {address?.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <h6>Province: {item?.province}</h6>
-                    <h6>City/Kabupaten: {item?.city}</h6>
-                    <h6>District/Kecamatan: {item?.district}</h6>
-                    <h6>Postal Code/Kode Pos: {item?.postalCode}</h6>
-                    <h6>Address Detail: {item?.address}</h6>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="add-container">
-              <h5>No data address yet</h5>
-            </div>
-          )}
+          <h1 className="my-3">Address Info</h1>
+          <div className="add-container">
+            {address ? (
+              <>
+                {address.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <h6>Recipient: </h6>
+                      <p className="data-address">{item?.fullName}</p>
+                      <h6>Province: </h6>
+                      <p className="data-address">{item?.province}</p>
+                      <h6>City/Kabupaten:</h6>
+                      <p className="data-address">{item?.city}</p>
+                      <h6>District/Kecamatan: </h6>
+                      <p className="data-address">{item?.district}</p>
+                      <h6>Postal Code/Kode Pos: </h6>
+                      <p className="data-address">{item?.postalCode}</p>
+                      <h6>Address Detail: </h6>
+                      <p className="data-address">{item?.address}</p>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                <h5>No data address yet</h5>
+              </>
+            )}
+          </div>
           <div className="mt-3">
             <Button
               type="button"
               variant="light"
               onClick={() => {
-                navigate(`/shipping`);
+                navigate(`/updateshipping`);
               }}
             >
-              Edit Address
+              Update Address
             </Button>
           </div>
         </Col>

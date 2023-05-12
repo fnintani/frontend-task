@@ -146,7 +146,7 @@ function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={"all" === category ? "text-bold linkon" : ""}
+                  className={"all" === category ? "linkclick" : "linkon"}
                   to={getFilterUrl({ category: "all" })}
                 >
                   All
@@ -154,7 +154,10 @@ function SearchScreen() {
               </li>
               {categories.map((c) => (
                 <li key={c}>
-                  <Link className="linkon" to={getFilterUrl({ category: c })}>
+                  <Link
+                    className={c === category ? "linkclick" : "linkon"}
+                    to={getFilterUrl({ category: c })}
+                  >
                     {c}
                   </Link>
                 </li>
@@ -165,13 +168,19 @@ function SearchScreen() {
           <div>
             <ul>
               <li>
-                <Link className="linkon" to={getFilterUrl({ tag: "all" })}>
+                <Link
+                  className={"all" === tag ? "linkclick" : "linkon"}
+                  to={getFilterUrl({ tag: "all" })}
+                >
                   All
                 </Link>
               </li>
               {tags.map((t) => (
                 <li key={t}>
-                  <Link className={"linkon"} to={getFilterUrl({ tag: t })}>
+                  <Link
+                    className={t === tag ? "linkclick" : "linkon"}
+                    to={getFilterUrl({ tag: t })}
+                  >
                     {t}
                   </Link>
                 </li>
@@ -183,7 +192,7 @@ function SearchScreen() {
             <ul>
               <li>
                 <Link
-                  className={"all" === price ? "text-bold" : ""}
+                  className={"all" === price ? "linkclick" : "linkon"}
                   to={getFilterUrl({ price: "all" })}
                 >
                   All
@@ -193,7 +202,7 @@ function SearchScreen() {
                 <li key={p.value}>
                   <Link
                     to={getFilterUrl({ price: p.value })}
-                    className={p.value === price ? "text-bold" : ""}
+                    className={p.value === price ? "linkclick" : "linkon"}
                   >
                     {p.name}
                   </Link>
@@ -202,7 +211,7 @@ function SearchScreen() {
             </ul>
           </div>
           <div>
-            <h3>Avg. Customer Review</h3>
+            <h3>Rating</h3>
             <ul>
               {ratings.map((r) => (
                 <li key={r.name}>

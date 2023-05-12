@@ -25,6 +25,7 @@ import { getError } from "./utils";
 import axios from "axios";
 import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
+import EditShippingAddress from "./screens/EditShippingAddress";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -173,6 +174,7 @@ function App() {
                 element={<OrderHistoryScreen />}
               ></Route>
               <Route path="/shipping" element={<ShippingAddressScreen />} />
+              <Route path="/updateshipping" element={<EditShippingAddress />} />
               <Route path="/payment" element={<PaymentMethodScreen />} />
               <Route path="/" element={<HomeScreen />} />
             </Routes>
