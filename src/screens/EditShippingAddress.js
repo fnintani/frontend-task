@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
-import CheckoutSteps from "../components/CheckoutSteps";
+import { toast } from "react-toastify";
 
 const ShippingAddressScreen = () => {
   const navigate = useNavigate();
@@ -52,6 +52,7 @@ const ShippingAddressScreen = () => {
         province,
       })
     );
+    toast.success("Address updated successfully");
     navigate("/profile");
   };
 
